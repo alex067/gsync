@@ -106,7 +106,7 @@ func startGrafanaContainer(t *testing.T) {
 	}
 }
 
-func cleanupContainer(t *testing.T) {
+func cleanup(t *testing.T) {
 	ctx := context.Background()
 	dockerCli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
@@ -114,6 +114,12 @@ func cleanupContainer(t *testing.T) {
 	}
 	if err := dockerCli.ContainerKill(ctx, "grafana", "SIGKILL"); err != nil {
 		t.Fatalf("failed to kill grafana container: %v", err)
+	}
+
+	_, absConfigFilePath, _ := gcf.GetAbsolutePath()
+	err = os.Remove(absConfigFilePath)
+	if err != nil {
+		t.Fatal("error cleaning up config file: ", err)
 	}
 }
 
@@ -282,7 +288,7 @@ func TestWatchingDashboard(t *testing.T) {
 		}
 
 		t.Cleanup(func() {
-			cleanupContainer(t)
+			cleanup(t)
 		})
 	})
 }
