@@ -1,0 +1,14 @@
+contexts:
+    - name: test
+      url: http://localhost:3000
+      auth:
+        grafana:
+            token: glsa_VhQdm4ooxmlnoNg0HQepZaMrIvWnZEym_864bf0b7
+      context:
+        dashboards:
+            path: /Users/alexpanayi/gsync/internal/pkg/gclient
+            tenant: test
+            watching:
+                folderUid: ""
+                resources: []
+currentContext: ""
