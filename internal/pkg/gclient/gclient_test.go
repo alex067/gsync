@@ -5,13 +5,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log/slog"
 	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
 	"syscall"
 	"testing"
 	"time"
@@ -44,18 +42,10 @@ func startGrafanaContainer(t *testing.T) {
 		t.Fatalf("error initializing docker client: %s", err)
 	}
 
-	reader, err := dockerCli.ImagePull(ctx, "docker.io/grafana/grafana:11.4.0", image.PullOptions{})
+	_, err = dockerCli.ImagePull(ctx, "docker.io/grafana/grafana:11.4.0", image.PullOptions{})
 	if err != nil {
 		t.Fatalf("error pulling grafana image: %s", err)
 	}
-	defer reader.Close()
-
-	buf := new(strings.Builder)
-	_, err = io.Copy(buf, reader)
-	if err != nil {
-		t.Fatalf("error reading pull output: %s", err)
-	}
-	t.Logf("Pull output: %s", buf.String())
 
 	hostPortBinding := nat.PortBinding{
 		HostIP:   "0.0.0.0",
