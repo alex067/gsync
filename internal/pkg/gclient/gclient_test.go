@@ -55,7 +55,6 @@ func startGrafanaContainer(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error reading pull output: %s", err)
 	}
-	t.Logf("Pull output: %s", buf.String())
 
 	hostPortBinding := nat.PortBinding{
 		HostIP:   "0.0.0.0",
