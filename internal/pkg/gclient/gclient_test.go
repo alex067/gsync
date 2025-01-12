@@ -50,6 +50,7 @@ func startGrafanaContainer(t *testing.T) {
 	}
 	defer reader.Close()
 
+	// Don't know why we need this but tests won't pass in Github otherwise lol
 	buf := new(strings.Builder)
 	_, err = io.Copy(buf, reader)
 	if err != nil {
