@@ -1,6 +1,7 @@
 package gcontext
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -30,12 +31,16 @@ func TestContextFiles(t *testing.T) {
 	gcf.Directory = "test"
 	gcf.Name = "config.yaml"
 
+	fmt.Println(dir)
+
 	t.Run("test create context", func(t *testing.T) {
 		newContext.Url = "http://localhost:3000"
 		newContext.Name = "test"
 		newContext.Authentication.Grafana.Token = "test"
 		newContext.Context.Dashboards.Path = filepath.Join(dir, "test")
 		newContext.Context.Dashboards.GrafanaTenant = "test"
+
+		fmt.Println(newContext)
 
 		err := configContext.CreateNewContext(newContext, gcf)
 		if err != nil {
