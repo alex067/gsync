@@ -23,9 +23,6 @@ jobs:
           cache: true
       
       - uses: docker/setup-buildx-action@v3
-
-      - name: Pull Grafana Image
-        run: docker image pull grafana:11.4.0 
       
       - name: Verify dependencies
         run: go mod verify
