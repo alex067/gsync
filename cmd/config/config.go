@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/Consensys/gsync/internal/pkg/gcontext"
+	"github.com/alex067/gsync/internal/pkg/gcontext"
 	"github.com/spf13/cobra"
 )
 
@@ -20,8 +20,7 @@ var (
 // configCmd represents the config command
 var ConfigCmd = &cobra.Command{
 	Use:   "config",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "Modify the gsync config file creating and setting contexts.",
 }
 
 func init() {

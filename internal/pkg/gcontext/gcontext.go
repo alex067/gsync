@@ -213,7 +213,6 @@ func (c *GConfigContext) CreateNewContext(
 			c.Contexts = append(c.Contexts, newContext)
 		}
 	} else if os.IsNotExist(err) {
-		fmt.Println("here")
 		c.Contexts = append(c.Contexts, newContext)
 	} else {
 		return err

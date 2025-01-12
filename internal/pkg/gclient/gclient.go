@@ -15,7 +15,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Consensys/gsync/internal/pkg/gcontext"
+	"github.com/alex067/gsync/internal/pkg/gcontext"
 )
 
 var ErrCleanShutdown = fmt.Errorf("shutdown signal")
@@ -352,6 +352,7 @@ func (gc *GrafanaClient) SaveChangesToDisk(dbClient *GrafanaDashboardClient) err
 		versionIncrement = dashboard["version"].(float64) + 1
 	}
 
+	dbClient.Dashboard.Dashboard["id"] = dashboard["id"]
 	dbClient.Dashboard.Dashboard["uid"] = dashboard["uid"]
 	dbClient.Dashboard.Dashboard["title"] = dashboard["title"]
 	dbClient.Dashboard.Dashboard["version"] = versionIncrement

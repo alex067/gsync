@@ -8,15 +8,14 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/Consensys/gsync/internal/pkg/gcontext"
+	"github.com/alex067/gsync/internal/pkg/gcontext"
 	"github.com/spf13/cobra"
 )
 
 // createContextCmd represents the createContext command
 var createContextCmd = &cobra.Command{
 	Use:   "create-context",
-	Short: "Create a new gsync context",
-	Long:  `Create a new gsync context to allow for fast switching between different grafana tenants and configs`,
+	Short: "Creates a new gsync context.",
 	Run: func(cmd *cobra.Command, args []string) {
 		logger.Info("Creating new context")
 
@@ -29,11 +28,11 @@ var createContextCmd = &cobra.Command{
 		// Search and/or create config diretory
 		if _, err := os.Stat(absConfigPath); err != nil {
 			if os.IsNotExist(err) {
-				logger.Info("Creating new local config directory in user home")
+				logger.Info("Creating new gsync config file in user home directory")
 				os.MkdirAll(absConfigPath, 0755)
 				//isContextDirectoryExist = false
 			} else {
-				logger.Error("Failed searching for local config directory", slog.String("error", err.Error()))
+				logger.Error("Failed searching for gsync config directory", slog.String("error", err.Error()))
 				os.Exit(1)
 			}
 		}
@@ -44,7 +43,7 @@ var createContextCmd = &cobra.Command{
 		fmt.Scanln(&newContext.Url)
 		fmt.Print("Context Name (Required): ")
 		fmt.Scanln(&newContext.Name)
-		fmt.Print("Dashboards Path (Absolute): ")
+		fmt.Print("Dashboards Path (Required, Absolute): ")
 		fmt.Scanln(&newContext.Context.Dashboards.Path)
 		fmt.Print("Grafana Tenant (Required): ")
 		fmt.Scanln(&newContext.Context.Dashboards.GrafanaTenant)
@@ -59,8 +58,7 @@ var createContextCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		logger.Info("Stored new context: ", newContext.Name, absConfigFilePath)
-		logger.Info("Successfully created context")
+		logger.Info("Created new context", newContext.Name, absConfigFilePath)
 	},
 }
 

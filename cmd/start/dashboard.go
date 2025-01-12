@@ -15,8 +15,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Consensys/gsync/internal/pkg/gclient"
-	"github.com/Consensys/gsync/internal/pkg/prompt"
+	"github.com/alex067/gsync/internal/pkg/gclient"
+	"github.com/alex067/gsync/internal/pkg/prompt"
 	"github.com/spf13/cobra"
 )
 

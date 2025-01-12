@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Consensys/gsync/internal/pkg/gcontext"
+	"github.com/alex067/gsync/internal/pkg/gcontext"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/image"
 	"github.com/docker/docker/client"
@@ -112,7 +112,7 @@ func cleanup(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error initializing docker client: %s", err)
 	}
-	if err := dockerCli.ContainerKill(ctx, "grafana", "SIGKILL"); err != nil {
+	if err := dockerCli.ContainerRemove(ctx, "grafana", container.RemoveOptions{Force: true}); err != nil {
 		t.Fatalf("failed to kill grafana container: %v", err)
 	}
 

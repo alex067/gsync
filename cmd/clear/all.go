@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/Consensys/gsync/internal/pkg/gclient"
+	"github.com/alex067/gsync/internal/pkg/gclient"
 	"github.com/spf13/cobra"
 	"golang.org/x/sync/errgroup"
 )

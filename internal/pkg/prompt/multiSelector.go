@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Consensys/gsync/internal/pkg/gcontext"
+	"github.com/alex067/gsync/internal/pkg/gcontext"
 	"github.com/manifoldco/promptui"
 )
 

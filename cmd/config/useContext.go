@@ -8,15 +8,13 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/Consensys/gsync/internal/pkg/prompt"
+	"github.com/alex067/gsync/internal/pkg/prompt"
 	"github.com/spf13/cobra"
 )
 
-// useContextCmd represents the useContext command
 var useContextCmd = &cobra.Command{
 	Use:   "use-context",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "Set the current-context in the gsync file.",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := configContext.ReadConfigFile(gcf)
 		if err != nil {
