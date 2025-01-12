@@ -34,7 +34,7 @@ func TestContextFiles(t *testing.T) {
 		newContext.Url = "http://localhost:3000"
 		newContext.Name = "test"
 		newContext.Authentication.Grafana.Token = "test"
-		newContext.Context.Dashboards.Path = "test"
+		newContext.Context.Dashboards.Path = filepath.Join(dir, "test")
 		newContext.Context.Dashboards.GrafanaTenant = "test"
 
 		err := configContext.CreateNewContext(newContext, gcf)
