@@ -20,7 +20,7 @@ jobs:
         with:
           go-version: 1.23.1
     
-      - uses: webfactory/ssh-agent@v0.8.0
+      - uses: webfactory/ssh-agent@v0.9.0
         id: ssh
         with:
           ssh-private-key: ${{ secrets.SIGNER_KEY }}
@@ -33,4 +33,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-          SSH_AUTH_SOCK: ${{ steps.ssh.outputs.ssh_auth_sock }}
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
