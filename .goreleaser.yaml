@@ -52,7 +52,6 @@ signs:
     artifacts: checksum
     signature: "${artifact}.sig"
     output: true
-    stdin: "{{ .Env.GPG_PASSWORD }}"
     args:
       - --batch
       - -u
