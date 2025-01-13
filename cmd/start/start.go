@@ -20,8 +20,7 @@ var (
 // configCmd represents the config command
 var StartCmd = &cobra.Command{
 	Use:   "start",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "Start watching for resource changes on Grafana.",
 }
 
 func init() {

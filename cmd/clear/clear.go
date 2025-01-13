@@ -20,8 +20,7 @@ var (
 // configCmd represents the config command
 var ClearCmd = &cobra.Command{
 	Use:   "clear",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "Clears watcher resources on Grafana.",
 }
 
 func init() {

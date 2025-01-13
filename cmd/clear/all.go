@@ -22,8 +22,7 @@ var (
 
 var allCmd = &cobra.Command{
 	Use:   "all",
-	Short: "A brief description of your command",
-	Long:  `foobar`,
+	Short: "Clears all watcher resources on Grafana.",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		err := configContext.ReadConfigFile(gcf)
 		if err != nil {
