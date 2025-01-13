@@ -48,14 +48,16 @@ changelog:
       - "^test:"
 
 signs:
-  - cmd: ssh-keygen
-    args:
-      - "-Y"
-      - "sign"
-      - "-n" 
-      - "file"
-      - "${artifact}"
-    artifacts: all
+  - cmd: gpg2
+    artifacts: checksum
     signature: "${artifact}.sig"
-    env:
-      - SSH_AUTH_SOCK={{ .Env.SSH_AUTH_SOCK }}
+    output: true
+    stdin: "{{ .Env.GPG_PASSWORD }}"
+    args:
+      - --batch
+      - -u
+      - "{{ .Env.GPG_FINGERPRINT }}"
+      - --output
+      - "${signature}"
+      - --detach-sign
+      - "${artifact}"
