@@ -34,8 +34,7 @@ type GrafanaDashboardJson struct {
 // startCmd represents the start command
 var dashboardCmd = &cobra.Command{
 	Use:   "dashboard",
-	Short: "A brief description of your command",
-	Long:  `foobar`,
+	Short: "Watch and sync dashboard changes.",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		err := configContext.ReadConfigFile(gcf)
 		if err != nil {

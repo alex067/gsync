@@ -26,4 +26,5 @@ jobs:
           RELEASE_BRANCHES: main
     
       - name: Display new version
-        run: echo "Created new version: ${{ steps.tagger.outputs.new_tag }}"
+        run: |
+          echo "Created new version: ${{ steps.tagger.outputs.new_tag }}"
