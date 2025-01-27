@@ -39,7 +39,7 @@ var createContextCmd = &cobra.Command{
 
 		var newContext gcontext.GContext
 
-		fmt.Print("Grafana URL (Required): ")
+		fmt.Print("Grafana Instance URL (Required): ")
 		fmt.Scanln(&newContext.Url)
 		fmt.Print("Context Name (Required): ")
 		fmt.Scanln(&newContext.Name)
@@ -59,6 +59,14 @@ var createContextCmd = &cobra.Command{
 		}
 
 		logger.Info("Created new context", newContext.Name, absConfigFilePath)
+
+		// If single context set it as active
+		contexts := configContext.GetContextNames()
+		if len(contexts) == 1 {
+			if err := configContext.SetCurrentContext(newContext.Name, false); err != nil {
+				logger.Error("Failed to set current context", slog.String("error", err.Error()))
+			}
+		}
 	},
 }
 

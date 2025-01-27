@@ -2,6 +2,7 @@ package gcontext
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -193,6 +194,18 @@ func (c *GConfigContext) CreateNewContext(
 
 	if newContext.Context.Dashboards.GrafanaTenant == "" {
 		return fmt.Errorf("grafana tenant is required")
+	}
+
+	if len(newContext.Url) < 4 {
+		return fmt.Errorf("must provide valid url to grafana instance")
+	}
+
+	if newContext.Url[0:4] != "http" {
+		newContext.Url = fmt.Sprintf("https://%s", newContext.Url)
+	}
+
+	if _, err := url.ParseRequestURI(newContext.Url); err != nil {
+		return fmt.Errorf("must provide valid url to grafana instance")
 	}
 
 	_, absConfigFilePath, err := gcf.GetAbsolutePath()
