@@ -113,8 +113,7 @@ var dashboardCmd = &cobra.Command{
 
 		var grafanaDashboard GrafanaDashboardJson
 		// Ignore error since file is validated
-		dashboardFileData, err := os.ReadFile(dashboardFilePath)
-		fmt.Println(err)
+		dashboardFileData, _ := os.ReadFile(dashboardFilePath)
 		if err := json.Unmarshal(dashboardFileData, &grafanaDashboard); err != nil {
 			logger.Error("Failed to parse dashboard file", slog.String("error", err.Error()))
 			os.Exit(1)
