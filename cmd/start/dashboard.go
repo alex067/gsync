@@ -89,7 +89,7 @@ var dashboardCmd = &cobra.Command{
 		if dashboardFile == "" {
 			// Display multi select menu
 			var mSelector prompt.MultiSelector
-			dashboardFile, err = mSelector.RunDashboardSelectMenu(
+			dashboardFilePath, err = mSelector.RunDashboardSelectMenu(
 				currentContextConfig.Context.Dashboards.Path,
 				configContext.GetWatchedDashboards(),
 			)
@@ -97,7 +97,6 @@ var dashboardCmd = &cobra.Command{
 				logger.Error("Failed to select dashboard", slog.String("error", err.Error()))
 				os.Exit(1)
 			}
-			dashboardFilePath = filepath.Join(currentContextConfig.Context.Dashboards.Path, dashboardFile)
 		} else {
 			// Search for dashboard based on filename
 			dashboardFilePath = filepath.Join(currentContextConfig.Context.Dashboards.Path, dashboardFile)
@@ -114,7 +113,8 @@ var dashboardCmd = &cobra.Command{
 
 		var grafanaDashboard GrafanaDashboardJson
 		// Ignore error since file is validated
-		dashboardFileData, _ := os.ReadFile(dashboardFilePath)
+		dashboardFileData, err := os.ReadFile(dashboardFilePath)
+		fmt.Println(err)
 		if err := json.Unmarshal(dashboardFileData, &grafanaDashboard); err != nil {
 			logger.Error("Failed to parse dashboard file", slog.String("error", err.Error()))
 			os.Exit(1)
@@ -183,5 +183,5 @@ var dashboardCmd = &cobra.Command{
 func init() {
 	dashboardCmd.Flags().Int("interval", 10, "Grafana polling interval")
 	dashboardCmd.Flags().StringVarP(&gContext, "context", "c", "", "Override current context")
-	dashboardCmd.Flags().StringVarP(&dashboardFile, "dashboard", "d", "", "Grafana dashboard file name to hot reload")
+	dashboardCmd.Flags().StringVarP(&dashboardFile, "dashboard", "d", "", "Grafana dashboard file relative path to watch (ex: example/foobar.json)")
 }

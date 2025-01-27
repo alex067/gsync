@@ -25,6 +25,7 @@ type DashboardSelectItem struct {
 	PaddedName string
 	Watching   string
 	Path       string
+	StripPath  string
 }
 
 type MultiSelector struct{}
@@ -123,6 +124,7 @@ func (c *MultiSelector) RunDashboardSelectMenu(dashboardPath string, watchedDash
 			var dashboardSelectItem DashboardSelectItem
 			dashboardSelectItem.Name = strings.Trim(filepath.Base(path), "")
 			dashboardSelectItem.Path = strings.Trim(path, "")
+			dashboardSelectItem.StripPath = path[len(dashboardPath):]
 			dashboardSelectItem.Watching = " " + strings.Repeat(" ", 2)
 
 			for _, resource := range watchedDashboards {
@@ -149,13 +151,13 @@ func (c *MultiSelector) RunDashboardSelectMenu(dashboardPath string, watchedDash
 
 	templates := &promptui.SelectTemplates{
 		Label:    "{{ . }}",
-		Active:   "{{.Watching}}{{.PaddedName}}{{.Path}}",
-		Inactive: "{{.Watching}}{{.PaddedName | faint}}{{.Path | faint}}",
+		Active:   "{{.Watching}}{{.PaddedName}}{{.StripPath}}",
+		Inactive: "{{.Watching}}{{.PaddedName | faint}}{{.StripPath | faint}}",
 		Selected: "✔ Selected dashboard: {{.Name }}",
 	}
 
 	// Create header
-	header := "  " + strings.Repeat(" ", 3) + fmt.Sprintf("%s%s", "NAME"+strings.Repeat(" ", maxWidth-len("NAME")), "PATH")
+	header := "  " + strings.Repeat(" ", 3) + fmt.Sprintf("%s%s", "NAME"+strings.Repeat(" ", maxWidth-len("NAME")), "RELATIVE PATH")
 
 	prompt := promptui.Select{
 		Label:        header,
@@ -173,7 +175,7 @@ func (c *MultiSelector) RunDashboardSelectMenu(dashboardPath string, watchedDash
 	} else if err != nil {
 		return "", err
 	}
-	return selectItems[index].Name, nil
+	return selectItems[index].Path, nil
 }
 
 func (c *MultiSelector) RunGetContextDisplay(currentContext string, configContexts []gcontext.GContext) error {
